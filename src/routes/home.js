@@ -21,9 +21,9 @@ export default class Home extends Component {
 		const el = document.querySelector('.astro');
 		const planet = el.querySelector('.astro__wrapper');
 		el.style.transform = `scale(10) translateY(15%)`;
-		el.style.transition = `1s linear all`;
+		el.style.transition = `1s ease all`;
 		planet.style.transform = `translateY(100%)`;
-		planet.style.transition = `1s linear all`;
+		planet.style.transition = `1s ease all`;
 		el.addEventListener(
 			'transitionend',
 			ev => {

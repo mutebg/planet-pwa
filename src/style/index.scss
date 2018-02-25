@@ -17,7 +17,7 @@ body {
 
 html {
 	overflow: hidden;
-	background: #000;
+	background: #fff;
 }
 
 $transition-time: 0.5s;
@@ -67,19 +67,32 @@ $solar-size: 300px;
 	box-shadow: 0 0 10px #fff;
 }
 
-.planet-names {
-	overflow: hidden;
-	color: #fff;
+.slider {
+	overflow-x: hidden;
 
 	&__wrapper {
-		width: 800%;
-		transition: $transition-time linear all;
+		width: 100%;
+		position: relative;
 	}
 
 	&__item {
+		position: absolute;
 		text-align: center;
-		width: 12.5%;
-		float: left;
+		width: 100%;
+		top: 0;
+		left: 0;
+	}
+}
+
+.planet-names {
+	color: #000;
+	height: 40px;
+
+	.slider__wrapper {
+		transition: $transition-time linear all;
+	}
+
+	.slider__item {
 		opacity: 0;
 		transition: $transition-time linear all;
 		font-size: 150%;
@@ -112,16 +125,16 @@ $solar-size: 300px;
 
 .astro {
 	width: 340px;
-	height: 224px;
+	height: 270px;
 	margin: 50px auto;
 	position: relative;
 	transition: 2s linear all;
 	z-index: 20;
+	animation: helmed-bounce 6s linear infinite alternate;
 
 	&__bg {
 		position: absolute;
-		background: url('https://image.ibb.co/budykx/Untitled.png') no-repeat center
-			center;
+		background: url('../assets/helmet.png') no-repeat center center;
 		background-size: contain;
 		top: 0;
 		left: 0;
@@ -131,41 +144,50 @@ $solar-size: 300px;
 	}
 
 	&__face {
-		width: 110px;
-		height: 135px;
+		width: 145px;
+		height: 162px;
 		background: #000;
 		position: absolute;
-		top: 25px;
-		left: 110px;
+		top: 33px;
+		left: 99px;
 		z-index: 1;
 		overflow: hidden;
-		border-radius: 20px;
+		border-radius: 30px;
 	}
 
-	&__wrapper {
-		width: 800%;
-		transition: $transition-time linear all;
-		background: #000;
+	.slider {
 		height: 100%;
 	}
 
-	&__item {
+	.slider__wrapper {
+		transition: $transition-time linear all;
+		height: 100%;
+	}
+
+	.slider__item {
+		transition: $transition-time linear all;
+		height: 100%;
+
+		.astro__planet {
+			opacity: 0.7;
+			transform: scale(0.5);
+			transform-origin: 50% 100%;
+		}
+
+		&--active {
+			.astro__planet {
+				opacity: 1;
+				transform: scale(1);
+			}
+		}
+	}
+
+	&__planet {
+		transition: $transition-time linear all;
 		background: no-repeat;
 		background-position: 50% 60px;
 		background-size: auto 100%;
-		width: 12.5%;
 		height: 100%;
-		float: left;
-		transition: $transition-time linear all;
-
-		opacity: 0.7;
-		transform: scale(0.5);
-		transform-origin: 50% 100%;
-
-		&--active {
-			opacity: 1;
-			transform: scale(1);
-		}
 	}
 }
 
@@ -260,5 +282,23 @@ $solar-size: 300px;
 
 	to {
 		opacity: 1;
+	}
+}
+
+@keyframes helmed-bounce {
+	0% {
+		transform: translate3d(0, -4px, 0);
+	}
+	30% {
+		transform: translate3d(2px, 0, 0);
+	}
+	54% {
+		transform: translate3d(-1px, 2px, 0);
+	}
+	75% {
+		transform: translate3d(0, 3px, 0);
+	}
+	100% {
+		transform: translate3d(-1px, 4px, 0);
 	}
 }
