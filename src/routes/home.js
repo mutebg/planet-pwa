@@ -7,7 +7,8 @@ import Astro from '../components/astro';
 
 export default class Home extends Component {
 	state = {
-		current: 0
+		current: 2,
+		activeAstro: false
 	};
 
 	move = direction => {
@@ -18,33 +19,50 @@ export default class Home extends Component {
 	};
 
 	onClick = () => {
-		const el = document.querySelector('.astro');
-		const planet = el.querySelector('.astro__wrapper');
-		el.style.transform = `scale(10) translateY(15%)`;
-		el.style.transition = `1s ease all`;
-		planet.style.transform = `translateY(100%)`;
-		planet.style.transition = `1s ease all`;
-		el.addEventListener(
-			'transitionend',
-			ev => {
-				const url = '/details/' + findPlanetIndex(this.state.current);
-				route(url);
-			},
-			{ once: true }
-		);
+		this.setState({
+			activeAstro: true
+		});
+
+		setTimeout(() => {
+			const url = '/details/' + findPlanetIndex(this.state.current);
+			route(url);
+		}, 1000);
 	};
 
-	render({}, { current }) {
+	render({}, { current, activeAstro }) {
 		const prev = () => this.move('prev');
 		const next = () => this.move('next');
 		return (
 			<div>
-				<Astro planets={planets} current={current} onClick={this.onClick} />
+				<Astro
+					planets={planets}
+					current={current}
+					active={activeAstro}
+					onClick={this.onClick}
+				/>
 				<button class="nav-btn nav-btn--prev" onClick={prev}>
-					prev
+					<svg
+						fill="currentColor"
+						height="24"
+						viewBox="0 0 24 24"
+						width="24"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path d="M15.41 16.09l-4.58-4.59 4.58-4.59L14 5.5l-6 6 6 6z" />
+						<path d="M0-.5h24v24H0z" fill="none" />
+					</svg>
 				</button>
 				<button class="nav-btn nav-btn--next" onClick={next}>
-					next
+					<svg
+						fill="currentColor"
+						height="24"
+						viewBox="0 0 24 24"
+						width="24"
+						xmlns="http://www.w3.org/2000/svg"
+					>
+						<path d="M8.59 16.34l4.58-4.59-4.58-4.59L10 5.75l6 6-6 6z" />
+						<path d="M0-.25h24v24H0z" fill="none" />
+					</svg>
 				</button>
 				<div class="solar-container">
 					<Solar planets={planets} current={current} onClick={this.onClick} />

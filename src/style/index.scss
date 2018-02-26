@@ -13,10 +13,10 @@ body {
 	color: #444;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+	overflow: hidden;
 }
 
 html {
-	overflow: hidden;
 	background: #fff;
 }
 
@@ -61,7 +61,7 @@ $solar-size: 300px;
 	position: absolute;
 	top: calc(50% - #{$planet-size / 2});
 	left: calc(50% - #{$planet-size / 2});
-	background: #000;
+	background: var(--color);
 	border-radius: 50%;
 	transition: $transition-time linear all;
 	box-shadow: 0 0 10px #fff;
@@ -95,8 +95,9 @@ $solar-size: 300px;
 	.slider__item {
 		opacity: 0;
 		transition: $transition-time linear all;
-		font-size: 150%;
+		font-size: 100%;
 		transform: scale(0);
+		text-transform: uppercase;
 
 		&--active {
 			opacity: 1;
@@ -108,18 +109,32 @@ $solar-size: 300px;
 .nav-btn {
 	position: absolute;
 	height: $solar-size / 1.5;
-	width: calc(50vw - #{$solar-size / 3});
+	//width: calc(50vw - #{$solar-size / 3});
+	width: 50%;
 	bottom: 0;
 	border: 0;
 	background: none;
 	z-index: 1;
+	outline: none;
+	color: #999;
+
+	svg {
+		margin-bottom: 96px;
+	}
 
 	&--prev {
 		left: 0;
+
+		svg {
+			margin-right: 116px;
+		}
 	}
 
 	&--next {
 		right: 0;
+		svg {
+			margin-left: 116px;
+		}
 	}
 }
 
@@ -128,25 +143,27 @@ $solar-size: 300px;
 	height: 270px;
 	margin: 50px auto;
 	position: relative;
-	transition: 2s linear all;
 	z-index: 20;
-	animation: helmed-bounce 6s linear infinite alternate;
 
 	&__bg {
 		position: absolute;
-		background: url('../assets/helmet.png') no-repeat center center;
+		background: url('../assets/helmet_270.png') no-repeat center center;
 		background-size: contain;
 		top: 0;
 		left: 0;
 		bottom: 0;
 		right: 0;
 		z-index: 2;
+		animation: helmed-bounce 6s linear infinite alternate;
 	}
 
 	&__face {
+		animation: helmed-bounce 6s linear infinite alternate;
+
 		width: 145px;
 		height: 162px;
-		background: #000;
+		background: #000 url('../assets/sky-bg.jpg');
+		background-size: cover;
 		position: absolute;
 		top: 33px;
 		left: 99px;
@@ -196,12 +213,9 @@ $solar-size: 300px;
 	background: #000;
 
 	&__bg {
-		background: url('http://t.motionelements.com/stock-video/nature/me2448083-stars-black-sky-hd-a0540-poster.jpg');
-		animation-duration: 1s;
-		animation-name: details-bg;
-		animation-timing-function: ease;
-		animation-fill-mode: forwards;
-		animation-iteration-count: 1;
+		background: url('../assets/sky-bg.jpg');
+		animation: details-bg 1s ease 1 forwards,
+			details-bg-blink 12s linear infinite alternate;
 		opacity: 0;
 		width: 100%;
 		height: 100%;
@@ -214,7 +228,7 @@ $solar-size: 300px;
 		padding: 2em;
 		animation-duration: 1s;
 		animation-name: details-info;
-		animation-timing-function: ease;
+		animation-timing-function: ease-in-out;
 		animation-fill-mode: forwards;
 		animation-iteration-count: 1;
 		animation-delay: 1s;
@@ -240,22 +254,23 @@ $solar-size: 300px;
 		position: absolute;
 		width: 100%;
 		bottom: 0;
-		animation-duration: 1s;
+		animation-duration: 2s;
 		animation-name: details-planet;
-		animation-timing-function: ease;
+		animation-timing-function: ease-in-out;
 		animation-fill-mode: forwards;
 		animation-iteration-count: 1;
 		z-index: 3;
 
 		img {
 			max-width: $solar-size;
+			animation: 120s rotate infinite;
 		}
 	}
 }
 
 @keyframes details-planet {
 	from {
-		transform: translateY(-100vh) scale(0);
+		transform: translateY(-45vh) scale(0);
 	}
 
 	to {
@@ -265,7 +280,7 @@ $solar-size: 300px;
 
 @keyframes details-info {
 	from {
-		transform: translateY(-100%);
+		transform: translateY(-30%);
 		opacity: 0;
 	}
 
@@ -285,6 +300,16 @@ $solar-size: 300px;
 	}
 }
 
+@keyframes details-bg-blink {
+	from {
+		transform: translate3d(20px, -40px, 0);
+	}
+
+	to {
+		transform: translate3d(-10px, 40px, 0);
+	}
+}
+
 @keyframes helmed-bounce {
 	0% {
 		transform: translate3d(0, -4px, 0);
@@ -300,5 +325,15 @@ $solar-size: 300px;
 	}
 	100% {
 		transform: translate3d(-1px, 4px, 0);
+	}
+}
+
+@keyframes rotate {
+	from {
+		transform: rotate(0);
+	}
+
+	to {
+		transform: rotate(360deg);
 	}
 }

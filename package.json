@@ -9,7 +9,8 @@
 		"serve": "preact build --template src/assets/template.html && preact serve",
 		"dev": "preact watch",
 		"lint": "eslint src",
-		"test": "jest ./tests"
+		"test": "jest ./tests",
+		"deploy": "surge build/ --domain solarsys.surge.sh"
 	},
 	"eslintConfig": {
 		"extends": "eslint-config-synacor"

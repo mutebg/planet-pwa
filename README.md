@@ -1,6 +1,7 @@
 # PWA planets
 
-inspiration: https://dribbble.com/shots/4220958-xore-solar-system
+Demo: http://solarsys.surge.sh/
+Inspired by: https://dribbble.com/shots/4220958-xore-solar-system
 
 ## CLI Commands
 
